@@ -10,6 +10,13 @@ if __name__ == '__main__':
     )
     cursor = mydb.cursor()
 
+    # First, I created a CTE called fastLaps to select all cars whose fastest lap time
+    # was under 2 minutes. I grouped by car and used MIN to check the fastest time per car.
+    #
+    # Then, in the main query, I joined this CTE with the teams_updated table to get points.
+    # I calculated the average points per car, grouped by car, and sorted the results
+    # in descending order. The query returns the car name and the average points as avg_pts.
+
     cursor.execute("""
         WITH fastLaps AS (
 	        SELECT DISTINCT f.Car as Car
