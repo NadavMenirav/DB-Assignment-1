@@ -10,6 +10,10 @@ if __name__ == '__main__':
     )
     cursor = mydb.cursor()
 
+    # This query finds all drivers who either won a race driving Ferrari or have Argentine nationality.
+    # The first part selects distinct winners who drove Ferrari, and the second part selects distinct drivers from Argentina.
+    # UNION combines both sets and removes duplicates, and ORDER BY driver sorts the final result alphabetically.
+
     cursor.execute("""
         SELECT DISTINCT Winner driver
         FROM winners 
