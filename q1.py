@@ -5,12 +5,14 @@ if __name__ == '__main__':
         host="localhost",
         user="root",
         password="root",
-        database="covid_db",
+        database="f1_data",
         port='3307',
     )
     cursor = mydb.cursor()
+    # Using Distinct because we only want to return one appearance of each driver
     cursor.execute("""
-        SELECT DISTINCT location
-        FROM covid_deaths
+        SELECT DISTINCT Driver
+        FROM drivers_updated
+        WHERE Nationality = 'BRA'
     """)
     print(', '.join(str(row) for row in cursor.fetchall()))
