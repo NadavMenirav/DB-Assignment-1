@@ -17,11 +17,12 @@ if __name__ == '__main__':
     cursor.execute("""
         SELECT 	w.Winner as 'driver name', gl.min_time
         FROM 	f1_data.winners as w JOIN (
-                    SELECT l.Driver, MIN(l.Time) as min_time, l.year
-                   FROM f1_data.fastest_laps_updated as l
-                   WHERE l.year = 2000
-                   GROUP BY l.Driver, l.year
-                   ) as gl ON (w.Winner = gl.Driver AND YEAR(w.Date) = gl.year)
+                                            SELECT l.Driver, MIN(l.Time) as min_time, l.year
+                                            FROM f1_data.fastest_laps_updated as l
+                                            WHERE l.year = 2000
+                                            GROUP BY l.Driver, l.year
+                                            ) as gl
+               ON (w.Winner = gl.Driver AND YEAR(w.Date) = gl.year)
                GROUP BY w.Winner
                HAVING   SUM(w.Laps) >= ALL(
                    SELECT SUM(Laps)
